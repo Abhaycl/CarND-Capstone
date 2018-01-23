@@ -241,8 +241,8 @@ class TLDetector(object):
         dist_coeff = None
         
         # 4x1 -> quaternion to rotation matrix at z-axis.
-        rot_vec, _ = cv2.Rodrigues(self.QuaterniontoRotationMatrix(rot))
-        ret, _ = cv2.projectPoints(world_point, rot_vec, np.array(trans).reshape(3, 1), camera_mat, dist_coeff)
+        rot_vec, _ = cv2.Rodrigues(self.QuaterniontoRotationMatrix(rotation))
+        ret, _ = cv2.projectPoints(world_point, rot_vec, np.array(transform).reshape(3, 1), camera_mat, dist_coeff)
         
         # Unpack values and return.
         ret = ret.reshape(2,)
@@ -297,7 +297,7 @@ class TLDetector(object):
                 # Only one complete circle, no minimum distance considered, yet.
                 for i in range(0, len(light_positions)):
                     index = self.get_closest_waypoint(float(light_positions[i][0]), float(light_positions[i][1]))
-                    if index > waypoint_start_index and index < light_wp:
+                    if index > car_position and index < light_wp:
                         light_wp = index;
                         light_pos = light_positions[i]
                 
@@ -327,4 +327,4 @@ if __name__ == '__main__':
     try:
         TLDetector()
     except rospy.ROSInterruptException:
-rospy.logerr('Could not start traffic node.')
+        rospy.logerr('Could not start traffic node.')
