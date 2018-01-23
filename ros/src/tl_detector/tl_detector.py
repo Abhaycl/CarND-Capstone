@@ -318,7 +318,7 @@ class TLDetector(object):
                                 #state = self.get_light_state(light.pose.pose.position.x, light.pose.pose.position.y, light.pose.pose.position.z)
                                 state = light.state
                     
-                    return light_waypoint, state
+                    return light_wp, state
         
         return -1, TrafficLight.UNKNOWN
 
